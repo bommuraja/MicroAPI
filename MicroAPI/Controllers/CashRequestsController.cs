@@ -18,13 +18,13 @@ namespace MicroAPI.Controllers
 
         // Method : 1
         // GET: api/DataEntryOperators
-        public List<BusinessModel.CashRequest> GetCashRequests()
+        public List<BusinessModel.CashRequestData> GetCashRequests()
         {
-            List<BusinessModel.CashRequest> objList = new List<BusinessModel.CashRequest>();
+            List<BusinessModel.CashRequestData> objList = new List<BusinessModel.CashRequestData>();
             foreach (var item in db.CashRequests)
             {
                 objList.Add(
-                    new BusinessModel.CashRequest
+                    new BusinessModel.CashRequestData
                     {
                       CashRequestID = item.CashRequestID,
                       UserAccountID = item.UserAccountID,
@@ -66,14 +66,14 @@ namespace MicroAPI.Controllers
 
         // Method : 3
         // GET: api/DataEntryOperators/5
-        [ResponseType(typeof(BusinessModel.CashRequest))]
-        public BusinessModel.CashRequest GetCashRequest(int id)
+        [ResponseType(typeof(BusinessModel.CashRequestData))]
+        public BusinessModel.CashRequestData GetCashRequest(int id)
         {
             var cashRequest = db.CashRequests.Find(id);
-            BusinessModel.CashRequest obj = new BusinessModel.CashRequest();
+            BusinessModel.CashRequestData obj = new BusinessModel.CashRequestData();
             if (cashRequest != null)
             {
-                obj = new BusinessModel.CashRequest
+                obj = new BusinessModel.CashRequestData
                 {
                     CashRequestID = cashRequest.CashRequestID,
                     UserAccountID = cashRequest.UserAccountID,
@@ -92,8 +92,8 @@ namespace MicroAPI.Controllers
 
         // Method : 4
         // POST: api/UserAccounts
-        [ResponseType(typeof(BusinessModel.CashRequest))]
-        public IHttpActionResult PostCashRequest(BusinessModel.CashRequest cashRequest)
+        [ResponseType(typeof(BusinessModel.CashRequestData))]
+        public IHttpActionResult PostCashRequest(BusinessModel.CashRequestData cashRequest)
         {
             if (!ModelState.IsValid)
             {

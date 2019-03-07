@@ -18,13 +18,13 @@ namespace MicroAPI.Controllers
 
         // Method : 1
         // GET: api/DataEntryOperators
-        public List<BusinessModel.CashRequestStatu> GetCashRequestStatus()
+        public List<BusinessModel.CashRequestStatusData> GetCashRequestStatus()
         {
-            List<BusinessModel.CashRequestStatu> objList = new List<BusinessModel.CashRequestStatu>();
+            List<BusinessModel.CashRequestStatusData> objList = new List<BusinessModel.CashRequestStatusData>();
             foreach (var item in db.CashRequestStatus)
             {
                 objList.Add(
-                    new BusinessModel.CashRequestStatu
+                    new BusinessModel.CashRequestStatusData
                     {
                         CashRequestStatusID = item.CashRequestStatusID,
                         CashRequestStatusName = item.CashRequestStatusName,
@@ -62,14 +62,14 @@ namespace MicroAPI.Controllers
 
         // Method : 3
         // GET: api/DataEntryOperators/5
-        [ResponseType(typeof(BusinessModel.CashRequestStatu))]
-        public BusinessModel.CashRequestStatu GetCashRequestStatu(int id)
+        [ResponseType(typeof(BusinessModel.CashRequestStatusData))]
+        public BusinessModel.CashRequestStatusData GetCashRequestStatu(int id)
         {
             var cashRequestStatu = db.CashRequestStatus.Find(id);
-            BusinessModel.CashRequestStatu obj = new BusinessModel.CashRequestStatu();
+            BusinessModel.CashRequestStatusData obj = new BusinessModel.CashRequestStatusData();
             if (cashRequestStatu != null)
             {
-                obj = new BusinessModel.CashRequestStatu
+                obj = new BusinessModel.CashRequestStatusData
                 {
                     CashRequestStatusID = cashRequestStatu.CashRequestStatusID,
                     CashRequestStatusName = cashRequestStatu.CashRequestStatusName,
@@ -84,8 +84,8 @@ namespace MicroAPI.Controllers
 
         // Method : 4
         // POST: api/UserAccounts
-        [ResponseType(typeof(BusinessModel.CashRequestStatu))]
-        public IHttpActionResult PostCashRequestStatu(BusinessModel.CashRequestStatu cashRequestStatu)
+        [ResponseType(typeof(BusinessModel.CashRequestStatusData))]
+        public IHttpActionResult PostCashRequestStatu(BusinessModel.CashRequestStatusData cashRequestStatu)
         {
             if (!ModelState.IsValid)
             {

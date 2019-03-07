@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MicroAPI.BusinessModel
 {
-    public class CashRequestStatu
+    public class CashRequestStatusData
     {
         public int CashRequestStatusID { get; set; }
         public string CashRequestStatusName { get; set; }

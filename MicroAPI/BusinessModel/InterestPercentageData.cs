@@ -5,12 +5,11 @@ using System.Web;
 
 namespace MicroAPI.BusinessModel
 {
-    public class CashPayment
+    public class InterestPercentageData
     {
-        public int CashPaymentID { get; set; }
+        public int InterestPercentageID { get; set; }
         public Nullable<int> UserAccountID { get; set; }
-        public string PaymentDate { get; set; }
-        public string PaymentAmount { get; set; }
+        public string InterestPercentage1 { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public string LastModifiedDate { get; set; }

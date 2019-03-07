@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MicroAPI.BusinessModel
 {
-    public class FinancialInstitution
+    public class FinancialInstitutionData
     {
         public int FinancialInstitutionID { get; set; }
         public Nullable<int> UserAccountID { get; set; }

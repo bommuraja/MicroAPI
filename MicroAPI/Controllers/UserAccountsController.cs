@@ -20,13 +20,13 @@ namespace MicroAPI.Controllers
 
         // Method : 1
         // GET: api/DataEntryOperators
-        public List<BusinessModel.UserAccount> GetUserAccounts()
+        public List<BusinessModel.UserAccountData> GetUserAccounts()
         {
-            List<BusinessModel.UserAccount> objList = new List<BusinessModel.UserAccount>();
+            List<BusinessModel.UserAccountData> objList = new List<BusinessModel.UserAccountData>();
             foreach (var item in db.UserAccounts)
             {
                 objList.Add(
-                    new BusinessModel.UserAccount
+                    new BusinessModel.UserAccountData
                     {
                         RoleID=item.RoleID,
                         UserAccountName=item.UserAccountName,
@@ -69,14 +69,14 @@ namespace MicroAPI.Controllers
 
         // Method : 3
         // GET: api/DataEntryOperators/5
-        [ResponseType(typeof(BusinessModel.UserAccount))]
-        public BusinessModel.UserAccount GetUserAccount(int id)
+        [ResponseType(typeof(BusinessModel.UserAccountData))]
+        public BusinessModel.UserAccountData GetUserAccount(int id)
         {
             var userAccounts = db.UserAccounts.Find(id);
-            BusinessModel.UserAccount obj = new BusinessModel.UserAccount();
+            BusinessModel.UserAccountData obj = new BusinessModel.UserAccountData();
             if (userAccounts != null)
             {
-                obj = new BusinessModel.UserAccount
+                obj = new BusinessModel.UserAccountData
                 {
                     RoleID = userAccounts.RoleID,
                     UserAccountName = userAccounts.UserAccountName,
@@ -96,8 +96,8 @@ namespace MicroAPI.Controllers
 
         // Method : 4
         // POST: api/UserAccounts
-        [ResponseType(typeof(BusinessModel.UserAccount))]
-        public IHttpActionResult PostUserAccount(BusinessModel.UserAccount userAccount)
+        [ResponseType(typeof(BusinessModel.UserAccountData))]
+        public IHttpActionResult PostUserAccount(BusinessModel.UserAccountData userAccount)
         {
             if (!ModelState.IsValid)
             {

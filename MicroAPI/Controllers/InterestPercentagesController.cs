@@ -18,13 +18,13 @@ namespace MicroAPI.Controllers
 
         // Method : 1
         // GET: api/DataEntryOperators
-        public List<BusinessModel.InterestPercentage> GetInterestPercentages()
+        public List<BusinessModel.InterestPercentageData> GetInterestPercentages()
         {
-            List<BusinessModel.InterestPercentage> objList = new List<BusinessModel.InterestPercentage>();
+            List<BusinessModel.InterestPercentageData> objList = new List<BusinessModel.InterestPercentageData>();
             foreach (var item in db.InterestPercentages)
             {
                 objList.Add(
-                    new BusinessModel.InterestPercentage
+                    new BusinessModel.InterestPercentageData
                     {
                        
                         InterestPercentageID = item.InterestPercentageID,
@@ -64,14 +64,14 @@ namespace MicroAPI.Controllers
 
         // Method : 3
         // GET: api/DataEntryOperators/5
-        [ResponseType(typeof(BusinessModel.InterestPercentage))]
-        public BusinessModel.InterestPercentage GetInterestPercentage(int id)
+        [ResponseType(typeof(BusinessModel.InterestPercentageData))]
+        public BusinessModel.InterestPercentageData GetInterestPercentage(int id)
         {
             var interestPercentage = db.InterestPercentages.Find(id);
-            BusinessModel.InterestPercentage obj = new BusinessModel.InterestPercentage();
+            BusinessModel.InterestPercentageData obj = new BusinessModel.InterestPercentageData();
             if (interestPercentage != null)
             {
-                obj = new BusinessModel.InterestPercentage
+                obj = new BusinessModel.InterestPercentageData
                 {
                     InterestPercentageID = interestPercentage.InterestPercentageID,
                     UserAccountID = interestPercentage.InterestPercentageID,
@@ -87,8 +87,8 @@ namespace MicroAPI.Controllers
 
         // Method : 4
         // POST: api/UserAccounts
-        [ResponseType(typeof(BusinessModel.InterestPercentage))]
-        public IHttpActionResult PostInterestPercentage(BusinessModel.InterestPercentage interestPercentage)
+        [ResponseType(typeof(BusinessModel.InterestPercentageData))]
+        public IHttpActionResult PostInterestPercentage(BusinessModel.InterestPercentageData interestPercentage)
         {
             if (!ModelState.IsValid)
             {

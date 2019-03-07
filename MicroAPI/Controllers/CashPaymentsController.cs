@@ -18,13 +18,13 @@ namespace MicroAPI.Controllers
 
         // Method : 1
         // GET: api/DataEntryOperators
-        public List<BusinessModel.CashPayment> GetCashPayments()
+        public List<BusinessModel.CashPaymentData> GetCashPayments()
         {
-            List<BusinessModel.CashPayment> objList = new List<BusinessModel.CashPayment>();
+            List<BusinessModel.CashPaymentData> objList = new List<BusinessModel.CashPaymentData>();
             foreach (var item in db.CashPayments)
             {
                 objList.Add(
-                    new BusinessModel.CashPayment
+                    new BusinessModel.CashPaymentData
                     {                      
                        CashPaymentID = item.CashPaymentID,
                        UserAccountID = item.UserAccountID,
@@ -64,14 +64,14 @@ namespace MicroAPI.Controllers
 
         // Method : 3
         // GET: api/DataEntryOperators/5
-        [ResponseType(typeof(BusinessModel.CashPayment))]
-        public BusinessModel.CashPayment GetCashPayment(int id)
+        [ResponseType(typeof(BusinessModel.CashPaymentData))]
+        public BusinessModel.CashPaymentData GetCashPayment(int id)
         {
             var cashPayment = db.CashPayments.Find(id);
-            BusinessModel.CashPayment obj = new BusinessModel.CashPayment();
+            BusinessModel.CashPaymentData obj = new BusinessModel.CashPaymentData();
             if (cashPayment != null)
             {
-                obj = new BusinessModel.CashPayment
+                obj = new BusinessModel.CashPaymentData
                 {
                     CashPaymentID = cashPayment.CashPaymentID,
                     UserAccountID = cashPayment.UserAccountID,
@@ -88,8 +88,8 @@ namespace MicroAPI.Controllers
 
         // Method : 4
         // POST: api/UserAccounts
-        [ResponseType(typeof(BusinessModel.CashPayment))]
-        public IHttpActionResult PostCashPayment(BusinessModel.CashPayment cashPayment)
+        [ResponseType(typeof(BusinessModel.CashPaymentData))]
+        public IHttpActionResult PostCashPayment(BusinessModel.CashPaymentData cashPayment)
         {
             if (!ModelState.IsValid)
             {

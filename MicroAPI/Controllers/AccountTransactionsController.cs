@@ -18,13 +18,13 @@ namespace MicroAPI.Controllers
 
         // Method : 1
         // GET: api/DataEntryOperators
-        public List<BusinessModel.AccountTransaction> GetAccountTransactions()
+        public List<BusinessModel.AccountTransactionData> GetAccountTransactions()
         {
-            List<BusinessModel.AccountTransaction> objList = new List<BusinessModel.AccountTransaction>();
+            List<BusinessModel.AccountTransactionData> objList = new List<BusinessModel.AccountTransactionData>();
             foreach (var item in db.AccountTransactions)
             {
                 objList.Add(
-                    new BusinessModel.AccountTransaction
+                    new BusinessModel.AccountTransactionData
                     {
                         AccountTransactionID = item.AccountTransactionID,
                         UserAccountID = item.UserAccountID,
@@ -68,14 +68,14 @@ namespace MicroAPI.Controllers
 
         // Method : 3
         // GET: api/DataEntryOperators/5
-        [ResponseType(typeof(BusinessModel.AccountTransaction))]
-        public BusinessModel.AccountTransaction GetAccountTransaction(int id)
+        [ResponseType(typeof(BusinessModel.AccountTransactionData))]
+        public BusinessModel.AccountTransactionData GetAccountTransaction(int id)
         {
             var accountTransaction = db.AccountTransactions.Find(id);
-            BusinessModel.AccountTransaction obj = new BusinessModel.AccountTransaction();
+            BusinessModel.AccountTransactionData obj = new BusinessModel.AccountTransactionData();
             if (accountTransaction != null)
             {
-                obj = new BusinessModel.AccountTransaction
+                obj = new BusinessModel.AccountTransactionData
                 {
                     AccountTransactionID = accountTransaction.AccountTransactionID,
                     UserAccountID = accountTransaction.UserAccountID,
@@ -96,8 +96,8 @@ namespace MicroAPI.Controllers
 
         // Method : 4
         // POST: api/UserAccounts
-        [ResponseType(typeof(BusinessModel.AccountTransaction))]
-        public IHttpActionResult PostAccountTransaction(BusinessModel.AccountTransaction accountTransaction)
+        [ResponseType(typeof(BusinessModel.AccountTransactionData))]
+        public IHttpActionResult PostAccountTransaction(BusinessModel.AccountTransactionData accountTransaction)
         {
             if (!ModelState.IsValid)
             {

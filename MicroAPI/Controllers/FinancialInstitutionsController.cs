@@ -18,13 +18,13 @@ namespace MicroAPI.Controllers
 
         // Method : 1
         // GET: api/DataEntryOperators
-        public List<BusinessModel.FinancialInstitution> GetFinancialInstitutions()
+        public List<BusinessModel.FinancialInstitutionData> GetFinancialInstitutions()
         {
-            List<BusinessModel.FinancialInstitution> objList = new List<BusinessModel.FinancialInstitution>();
+            List<BusinessModel.FinancialInstitutionData> objList = new List<BusinessModel.FinancialInstitutionData>();
             foreach (var item in db.FinancialInstitutions)
             {
                 objList.Add(
-                    new BusinessModel.FinancialInstitution
+                    new BusinessModel.FinancialInstitutionData
                     {
                         FinancialInstitutionID = item.FinancialInstitutionID,
                         UserAccountID = item.UserAccountID,
@@ -69,14 +69,14 @@ namespace MicroAPI.Controllers
 
         // Method : 3
         // GET: api/DataEntryOperators/5
-        [ResponseType(typeof(BusinessModel.FinancialInstitution))]
-        public BusinessModel.FinancialInstitution GetFinancialInstitution(int id)
+        [ResponseType(typeof(BusinessModel.FinancialInstitutionData))]
+        public BusinessModel.FinancialInstitutionData GetFinancialInstitution(int id)
         {
             var financialInstitution = db.FinancialInstitutions.Find(id);
-            BusinessModel.FinancialInstitution obj = new BusinessModel.FinancialInstitution();
+            BusinessModel.FinancialInstitutionData obj = new BusinessModel.FinancialInstitutionData();
             if (financialInstitution != null)
             {
-                obj = new BusinessModel.FinancialInstitution
+                obj = new BusinessModel.FinancialInstitutionData
                 {
                     FinancialInstitutionID = financialInstitution.FinancialInstitutionID,
                     UserAccountID = financialInstitution.UserAccountID,
@@ -98,8 +98,8 @@ namespace MicroAPI.Controllers
 
         // Method : 4
         // POST: api/UserAccounts
-        [ResponseType(typeof(BusinessModel.FinancialInstitution))]
-        public IHttpActionResult PostFinancialInstitution(BusinessModel.FinancialInstitution financialInstitution)
+        [ResponseType(typeof(BusinessModel.FinancialInstitutionData))]
+        public IHttpActionResult PostFinancialInstitution(BusinessModel.FinancialInstitutionData financialInstitution)
         {
             if (!ModelState.IsValid)
             {
