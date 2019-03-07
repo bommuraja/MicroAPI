@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MicroDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountTransaction">
+          <Key>
+            <PropertyRef Name="AccountTransactionID" />
+          </Key>
+          <Property Name="AccountTransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserAccountID" Type="int" />
+          <Property Name="TransactionReferenceID" Type="int" />
+          <Property Name="TransactionDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransactionAmount" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransactionDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsCredit" Type="bit" />
+          <Property Name="BalanceAmount" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CashPayment">
+          <Key>
+            <PropertyRef Name="CashPaymentID" />
+          </Key>
+          <Property Name="CashPaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserAccountID" Type="int" />
+          <Property Name="PaymentDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="PaymentAmount" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CashPaymentStatus">
+          <Key>
+            <PropertyRef Name="CashPaymentStatusID" />
+          </Key>
+          <Property Name="CashPaymentStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CashPaymentStatusName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CashRequest">
+          <Key>
+            <PropertyRef Name="CashRequestID" />
+          </Key>
+          <Property Name="CashRequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserAccountID" Type="int" />
+          <Property Name="RequestDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ResponseDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="RequestAmount" Type="nvarchar" MaxLength="50" />
+          <Property Name="ResponseAmount" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CashRequestStatus">
+          <Key>
+            <PropertyRef Name="CashRequestStatusID" />
+          </Key>
+          <Property Name="CashRequestStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CashRequestStatusName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FinancialInstitution">
+          <Key>
+            <PropertyRef Name="FinancialInstitutionID" />
+          </Key>
+          <Property Name="FinancialInstitutionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserAccountID" Type="int" />
+          <Property Name="AccountName" Type="nvarchar" MaxLength="50" />
+          <Property Name="NickName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AccountNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="InstitutionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="InstitutionIFSCCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="InstitutionLocation" Type="nvarchar" MaxLength="50" />
+          <Property Name="InstitutionCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="InterestPercentage">
+          <Key>
+            <PropertyRef Name="InterestPercentageID" />
+          </Key>
+          <Property Name="InterestPercentageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserAccountID" Type="int" />
+          <Property Name="InterestPercentage" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="UserAccountID" />
+          </Key>
+          <Property Name="UserAccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="UserAccountName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="EMailAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactAddress" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityContainer Name="MicroDataModelStoreContainer">
+          <EntitySet Name="AccountTransaction" EntityType="Self.AccountTransaction" Schema="bommuraj_micro" store:Type="Tables" />
+          <EntitySet Name="CashPayment" EntityType="Self.CashPayment" Schema="bommuraj_micro" store:Type="Tables" />
+          <EntitySet Name="CashPaymentStatus" EntityType="Self.CashPaymentStatus" Schema="bommuraj_micro" store:Type="Tables" />
+          <EntitySet Name="CashRequest" EntityType="Self.CashRequest" Schema="bommuraj_micro" store:Type="Tables" />
+          <EntitySet Name="CashRequestStatus" EntityType="Self.CashRequestStatus" Schema="bommuraj_micro" store:Type="Tables" />
+          <EntitySet Name="FinancialInstitution" EntityType="Self.FinancialInstitution" Schema="bommuraj_micro" store:Type="Tables" />
+          <EntitySet Name="InterestPercentage" EntityType="Self.InterestPercentage" Schema="bommuraj_micro" store:Type="Tables" />
+          <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="bommuraj_micro" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MicroDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MicroEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountTransactions" EntityType="MicroDataModel.AccountTransaction" />
+          <EntitySet Name="CashPayments" EntityType="MicroDataModel.CashPayment" />
+          <EntitySet Name="CashPaymentStatus" EntityType="MicroDataModel.CashPaymentStatu" />
+          <EntitySet Name="CashRequests" EntityType="MicroDataModel.CashRequest" />
+          <EntitySet Name="CashRequestStatus" EntityType="MicroDataModel.CashRequestStatu" />
+          <EntitySet Name="FinancialInstitutions" EntityType="MicroDataModel.FinancialInstitution" />
+          <EntitySet Name="InterestPercentages" EntityType="MicroDataModel.InterestPercentage" />
+          <EntitySet Name="UserAccounts" EntityType="MicroDataModel.UserAccount" />
+        </EntityContainer>
+        <EntityType Name="AccountTransaction">
+          <Key>
+            <PropertyRef Name="AccountTransactionID" />
+          </Key>
+          <Property Name="AccountTransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserAccountID" Type="Int32" />
+          <Property Name="TransactionReferenceID" Type="Int32" />
+          <Property Name="TransactionDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsCredit" Type="Boolean" />
+          <Property Name="BalanceAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CashPayment">
+          <Key>
+            <PropertyRef Name="CashPaymentID" />
+          </Key>
+          <Property Name="CashPaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserAccountID" Type="Int32" />
+          <Property Name="PaymentDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CashPaymentStatu">
+          <Key>
+            <PropertyRef Name="CashPaymentStatusID" />
+          </Key>
+          <Property Name="CashPaymentStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CashPaymentStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CashRequest">
+          <Key>
+            <PropertyRef Name="CashRequestID" />
+          </Key>
+          <Property Name="CashRequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserAccountID" Type="Int32" />
+          <Property Name="RequestDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RequestAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CashRequestStatu">
+          <Key>
+            <PropertyRef Name="CashRequestStatusID" />
+          </Key>
+          <Property Name="CashRequestStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CashRequestStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FinancialInstitution">
+          <Key>
+            <PropertyRef Name="FinancialInstitutionID" />
+          </Key>
+          <Property Name="FinancialInstitutionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserAccountID" Type="Int32" />
+          <Property Name="AccountName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InstitutionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InstitutionIFSCCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InstitutionLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InstitutionCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="InterestPercentage">
+          <Key>
+            <PropertyRef Name="InterestPercentageID" />
+          </Key>
+          <Property Name="InterestPercentageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserAccountID" Type="Int32" />
+          <Property Name="InterestPercentage1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="UserAccountID" />
+          </Key>
+          <Property Name="UserAccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="UserAccountName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MicroDataModelStoreContainer" CdmEntityContainer="MicroEntities">
+          <EntitySetMapping Name="AccountTransactions">
+            <EntityTypeMapping TypeName="MicroDataModel.AccountTransaction">
+              <MappingFragment StoreEntitySet="AccountTransaction">
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="BalanceAmount" ColumnName="BalanceAmount" />
+                <ScalarProperty Name="IsCredit" ColumnName="IsCredit" />
+                <ScalarProperty Name="TransactionDescription" ColumnName="TransactionDescription" />
+                <ScalarProperty Name="TransactionAmount" ColumnName="TransactionAmount" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="TransactionReferenceID" ColumnName="TransactionReferenceID" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="AccountTransactionID" ColumnName="AccountTransactionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CashPayments">
+            <EntityTypeMapping TypeName="MicroDataModel.CashPayment">
+              <MappingFragment StoreEntitySet="CashPayment">
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="CashPaymentID" ColumnName="CashPaymentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CashPaymentStatus">
+            <EntityTypeMapping TypeName="MicroDataModel.CashPaymentStatu">
+              <MappingFragment StoreEntitySet="CashPaymentStatus">
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CashPaymentStatusName" ColumnName="CashPaymentStatusName" />
+                <ScalarProperty Name="CashPaymentStatusID" ColumnName="CashPaymentStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CashRequests">
+            <EntityTypeMapping TypeName="MicroDataModel.CashRequest">
+              <MappingFragment StoreEntitySet="CashRequest">
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ResponseAmount" ColumnName="ResponseAmount" />
+                <ScalarProperty Name="RequestAmount" ColumnName="RequestAmount" />
+                <ScalarProperty Name="ResponseDate" ColumnName="ResponseDate" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="CashRequestID" ColumnName="CashRequestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CashRequestStatus">
+            <EntityTypeMapping TypeName="MicroDataModel.CashRequestStatu">
+              <MappingFragment StoreEntitySet="CashRequestStatus">
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CashRequestStatusName" ColumnName="CashRequestStatusName" />
+                <ScalarProperty Name="CashRequestStatusID" ColumnName="CashRequestStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinancialInstitutions">
+            <EntityTypeMapping TypeName="MicroDataModel.FinancialInstitution">
+              <MappingFragment StoreEntitySet="FinancialInstitution">
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="InstitutionCity" ColumnName="InstitutionCity" />
+                <ScalarProperty Name="InstitutionLocation" ColumnName="InstitutionLocation" />
+                <ScalarProperty Name="InstitutionIFSCCode" ColumnName="InstitutionIFSCCode" />
+                <ScalarProperty Name="InstitutionName" ColumnName="InstitutionName" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="FinancialInstitutionID" ColumnName="FinancialInstitutionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InterestPercentages">
+            <EntityTypeMapping TypeName="MicroDataModel.InterestPercentage">
+              <MappingFragment StoreEntitySet="InterestPercentage">
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="InterestPercentage1" ColumnName="InterestPercentage" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="InterestPercentageID" ColumnName="InterestPercentageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAccounts">
+            <EntityTypeMapping TypeName="MicroDataModel.UserAccount">
+              <MappingFragment StoreEntitySet="UserAccount">
+                <ScalarProperty Name="ContactAddress" ColumnName="ContactAddress" />
+                <ScalarProperty Name="EMailAddress" ColumnName="EMailAddress" />
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="UserAccountName" ColumnName="UserAccountName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -46,10 +46,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -183,10 +190,65 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="BusinessModel\AccountTransaction.cs" />
+    <Compile Include="BusinessModel\CashPayment.cs" />
+    <Compile Include="BusinessModel\CashPaymentStatu.cs" />
+    <Compile Include="BusinessModel\CashRequest.cs" />
+    <Compile Include="BusinessModel\CashRequestStatu.cs" />
+    <Compile Include="BusinessModel\FinancialInstitution.cs" />
+    <Compile Include="BusinessModel\InterestPercentage.cs" />
+    <Compile Include="BusinessModel\UserAccount.cs" />
+    <Compile Include="Controllers\AccountTransactionsController.cs" />
+    <Compile Include="Controllers\CashPaymentsController.cs" />
+    <Compile Include="Controllers\CashPaymentStatusController.cs" />
+    <Compile Include="Controllers\CashRequestsController.cs" />
+    <Compile Include="Controllers\CashRequestStatusController.cs" />
+    <Compile Include="Controllers\FinancialInstitutionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InterestPercentagesController.cs" />
+    <Compile Include="Controllers\UserAccountsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountTransaction.cs">
+      <DependentUpon>MicroEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CashPayment.cs">
+      <DependentUpon>MicroEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CashPaymentStatu.cs">
+      <DependentUpon>MicroEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CashRequest.cs">
+      <DependentUpon>MicroEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CashRequestStatu.cs">
+      <DependentUpon>MicroEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FinancialInstitution.cs">
+      <DependentUpon>MicroEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InterestPercentage.cs">
+      <DependentUpon>MicroEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MicroEntityDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MicroEntityDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MicroEntityDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MicroEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MicroEntityDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MicroEntityDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserAccount.cs">
+      <DependentUpon>MicroEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -199,6 +261,16 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Models\MicroEntityDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MicroEntityDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>MicroEntityDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\MicroEntityDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MicroEntityDataModel.edmx</DependentUpon>
+      <LastGenOutput>MicroEntityDataModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -223,6 +295,14 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EntityDeploy Include="Models\MicroEntityDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MicroEntityDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\MicroEntityDataModel.edmx.diagram">
+      <DependentUpon>MicroEntityDataModel.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -246,7 +326,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -276,6 +355,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
