@@ -28,6 +28,7 @@ namespace MicroAPI.Controllers
                 objList.Add(
                     new BusinessModel.UserAccountData
                     {
+                        UserAccountID=item.UserAccountID,
                         RoleID=item.RoleID,
                         UserAccountName=item.UserAccountName,
                         ContactNumber=item.ContactNumber,
@@ -78,6 +79,7 @@ namespace MicroAPI.Controllers
             {
                 obj = new BusinessModel.UserAccountData
                 {
+                    UserAccountID = userAccounts.UserAccountID,
                     RoleID = userAccounts.RoleID,
                     UserAccountName = userAccounts.UserAccountName,
                     ContactNumber = userAccounts.ContactNumber,
@@ -106,6 +108,7 @@ namespace MicroAPI.Controllers
             if (userAccount.UserAccountID > 0)
             {
                 Models.UserAccount obj= db.UserAccounts.Find(userAccount.UserAccountID);
+                obj.UserAccountID = userAccount.UserAccountID;
                 obj.RoleID = userAccount.RoleID;
                 obj.UserAccountName = userAccount.UserAccountName;
                 obj.ContactNumber = userAccount.ContactNumber;
@@ -125,6 +128,7 @@ namespace MicroAPI.Controllers
             {
                 Models.UserAccount obj = new Models.UserAccount
                 {
+                    UserAccountID = userAccount.UserAccountID,
                     RoleID = userAccount.RoleID,
                     UserAccountName = userAccount.UserAccountName,
                     ContactNumber = userAccount.ContactNumber,
