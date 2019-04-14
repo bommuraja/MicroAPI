@@ -39,7 +39,7 @@ namespace MicroAPI.Controllers
         }
 
         // Method : 2
-        [Route("api/CashRequestStatu/{id}")]
+        [Route("api/DropCashRequestStatus/{id}")]
         public bool GetRemoveCashRequestStatuDetail(int id)
         {
             var cashRequestStatu = db.CashRequestStatus.Find(id);

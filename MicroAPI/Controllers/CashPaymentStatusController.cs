@@ -32,13 +32,13 @@ namespace MicroAPI.Controllers
                         CreatedBy = item.CreatedBy,
                         LastModifiedDate = item.LastModifiedDate,
                         LastModifiedBy = item.LastModifiedBy
-    }
+                    }
                 );
             }
             return objList;
         }
 
-        // Method : 2
+        // Method : 2 test
         [Route("api/DropCashPaymentStatu/{id}")]
         public bool GetRemoveCashPaymentStatuDetail(int id)
         {
