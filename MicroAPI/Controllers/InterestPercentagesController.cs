@@ -16,7 +16,7 @@ namespace MicroAPI.Controllers
     {
         private MicroEntities db = new MicroEntities();
 
-        // Method : 1
+        // Method : 1 test
         // GET: api/DataEntryOperators
         public List<BusinessModel.InterestPercentageData> GetInterestPercentages()
         {
