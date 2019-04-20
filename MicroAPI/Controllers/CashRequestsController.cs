@@ -28,6 +28,9 @@ namespace MicroAPI.Controllers
                     {
                       CashRequestID = item.CashRequestID,
                       UserAccountID = item.UserAccountID,
+                      CashRequestStatusID = item.CashRequestStatusID,
+                      PaymentFromBankID = item.PaymentFromBankID,
+                      PaymentToBankID = item.PaymentToBankID,
                       RequestDate = item.RequestDate,
                       ResponseDate = item.ResponseDate,
                       RequestAmount = item.RequestAmount,
@@ -77,6 +80,9 @@ namespace MicroAPI.Controllers
                 {
                     CashRequestID = cashRequest.CashRequestID,
                     UserAccountID = cashRequest.UserAccountID,
+                    CashRequestStatusID = cashRequest.CashRequestStatusID,
+                    PaymentFromBankID = cashRequest.PaymentFromBankID,
+                    PaymentToBankID = cashRequest.PaymentToBankID,
                     RequestDate = cashRequest.RequestDate,
                     ResponseDate = cashRequest.ResponseDate,
                     RequestAmount = cashRequest.RequestAmount,
@@ -105,6 +111,9 @@ namespace MicroAPI.Controllers
                 
                 obj.CashRequestID = cashRequest.CashRequestID;
                 obj.UserAccountID = cashRequest.UserAccountID;
+                obj.CashRequestStatusID = cashRequest.CashRequestStatusID;
+                obj.PaymentFromBankID = cashRequest.PaymentFromBankID;
+                obj.PaymentToBankID = cashRequest.PaymentToBankID;
                 obj.RequestDate = cashRequest.RequestDate;
                 obj.ResponseDate = cashRequest.ResponseDate;
                 obj.RequestAmount = cashRequest.RequestAmount;
@@ -123,6 +132,9 @@ namespace MicroAPI.Controllers
                 {
                     CashRequestID = cashRequest.CashRequestID,
                     UserAccountID = cashRequest.UserAccountID,
+                    CashRequestStatusID = cashRequest.CashRequestStatusID,
+                    PaymentFromBankID = cashRequest.PaymentFromBankID,
+                    PaymentToBankID = cashRequest.PaymentToBankID,
                     RequestDate = cashRequest.RequestDate,
                     ResponseDate = cashRequest.ResponseDate,
                     RequestAmount = cashRequest.RequestAmount,

@@ -16,6 +16,9 @@ namespace MicroAPI.Models
     {
         public int CashRequestID { get; set; }
         public Nullable<int> UserAccountID { get; set; }
+        public Nullable<int> CashRequestStatusID { get; set; }
+        public Nullable<int> PaymentFromBankID { get; set; }
+        public Nullable<int> PaymentToBankID { get; set; }
         public string RequestDate { get; set; }
         public string ResponseDate { get; set; }
         public string RequestAmount { get; set; }

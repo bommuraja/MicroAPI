@@ -28,6 +28,9 @@
           </Key>
           <Property Name="CashPaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserAccountID" Type="int" />
+          <Property Name="PaymentFromBankID" Type="int" />
+          <Property Name="PaymentToBankID" Type="int" />
+          <Property Name="PaymentStatusID" Type="int" />
           <Property Name="PaymentDate" Type="nvarchar" MaxLength="50" />
           <Property Name="PaymentAmount" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
@@ -52,6 +55,9 @@
           </Key>
           <Property Name="CashRequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserAccountID" Type="int" />
+          <Property Name="CashRequestStatusID" Type="int" />
+          <Property Name="PaymentFromBankID" Type="int" />
+          <Property Name="PaymentToBankID" Type="int" />
           <Property Name="RequestDate" Type="nvarchar" MaxLength="50" />
           <Property Name="ResponseDate" Type="nvarchar" MaxLength="50" />
           <Property Name="RequestAmount" Type="nvarchar" MaxLength="50" />
@@ -135,13 +141,13 @@
       <Schema Namespace="MicroDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="MicroEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AccountTransactions" EntityType="MicroDataModel.AccountTransaction" />
-          <EntitySet Name="CashPayments" EntityType="MicroDataModel.CashPayment" />
           <EntitySet Name="CashPaymentStatus" EntityType="MicroDataModel.CashPaymentStatu" />
-          <EntitySet Name="CashRequests" EntityType="MicroDataModel.CashRequest" />
           <EntitySet Name="CashRequestStatus" EntityType="MicroDataModel.CashRequestStatu" />
           <EntitySet Name="FinancialInstitutions" EntityType="MicroDataModel.FinancialInstitution" />
           <EntitySet Name="InterestPercentages" EntityType="MicroDataModel.InterestPercentage" />
           <EntitySet Name="UserAccounts" EntityType="MicroDataModel.UserAccount" />
+          <EntitySet Name="CashPayments" EntityType="MicroDataModel.CashPayment" />
+          <EntitySet Name="CashRequests" EntityType="MicroDataModel.CashRequest" />
         </EntityContainer>
         <EntityType Name="AccountTransaction">
           <Key>
@@ -160,40 +166,12 @@
           <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="CashPayment">
-          <Key>
-            <PropertyRef Name="CashPaymentID" />
-          </Key>
-          <Property Name="CashPaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserAccountID" Type="Int32" />
-          <Property Name="PaymentDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PaymentAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="CashPaymentStatu">
           <Key>
             <PropertyRef Name="CashPaymentStatusID" />
           </Key>
           <Property Name="CashPaymentStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CashPaymentStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="CashRequest">
-          <Key>
-            <PropertyRef Name="CashRequestID" />
-          </Key>
-          <Property Name="CashRequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserAccountID" Type="Int32" />
-          <Property Name="RequestDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ResponseDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RequestAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ResponseAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -257,6 +235,40 @@
           <Property Name="EMailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ContactAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="CashPayment">
+          <Key>
+            <PropertyRef Name="CashPaymentID" />
+          </Key>
+          <Property Name="CashPaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserAccountID" Type="Int32" />
+          <Property Name="PaymentFromBankID" Type="Int32" />
+          <Property Name="PaymentToBankID" Type="Int32" />
+          <Property Name="PaymentStatusID" Type="Int32" />
+          <Property Name="PaymentDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CashRequest">
+          <Key>
+            <PropertyRef Name="CashRequestID" />
+          </Key>
+          <Property Name="CashRequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserAccountID" Type="Int32" />
+          <Property Name="CashRequestStatusID" Type="Int32" />
+          <Property Name="PaymentFromBankID" Type="Int32" />
+          <Property Name="PaymentToBankID" Type="Int32" />
+          <Property Name="RequestDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RequestAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -281,20 +293,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CashPayments">
-            <EntityTypeMapping TypeName="MicroDataModel.CashPayment">
-              <MappingFragment StoreEntitySet="CashPayment">
-                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
-                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
-                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
-                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
-                <ScalarProperty Name="CashPaymentID" ColumnName="CashPaymentID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CashPaymentStatus">
             <EntityTypeMapping TypeName="MicroDataModel.CashPaymentStatu">
               <MappingFragment StoreEntitySet="CashPaymentStatus">
@@ -304,22 +302,6 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CashPaymentStatusName" ColumnName="CashPaymentStatusName" />
                 <ScalarProperty Name="CashPaymentStatusID" ColumnName="CashPaymentStatusID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CashRequests">
-            <EntityTypeMapping TypeName="MicroDataModel.CashRequest">
-              <MappingFragment StoreEntitySet="CashRequest">
-                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
-                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ResponseAmount" ColumnName="ResponseAmount" />
-                <ScalarProperty Name="RequestAmount" ColumnName="RequestAmount" />
-                <ScalarProperty Name="ResponseDate" ColumnName="ResponseDate" />
-                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
-                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
-                <ScalarProperty Name="CashRequestID" ColumnName="CashRequestID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -382,6 +364,42 @@
                 <ScalarProperty Name="UserAccountName" ColumnName="UserAccountName" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CashPayments">
+            <EntityTypeMapping TypeName="MicroDataModel.CashPayment">
+              <MappingFragment StoreEntitySet="CashPayment">
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="PaymentStatusID" ColumnName="PaymentStatusID" />
+                <ScalarProperty Name="PaymentToBankID" ColumnName="PaymentToBankID" />
+                <ScalarProperty Name="PaymentFromBankID" ColumnName="PaymentFromBankID" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="CashPaymentID" ColumnName="CashPaymentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CashRequests">
+            <EntityTypeMapping TypeName="MicroDataModel.CashRequest">
+              <MappingFragment StoreEntitySet="CashRequest">
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ResponseAmount" ColumnName="ResponseAmount" />
+                <ScalarProperty Name="RequestAmount" ColumnName="RequestAmount" />
+                <ScalarProperty Name="ResponseDate" ColumnName="ResponseDate" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="PaymentToBankID" ColumnName="PaymentToBankID" />
+                <ScalarProperty Name="PaymentFromBankID" ColumnName="PaymentFromBankID" />
+                <ScalarProperty Name="CashRequestStatusID" ColumnName="CashRequestStatusID" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="CashRequestID" ColumnName="CashRequestID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
