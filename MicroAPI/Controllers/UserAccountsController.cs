@@ -96,6 +96,32 @@ namespace MicroAPI.Controllers
             return obj;
         }
 
+        [ResponseType(typeof(BusinessModel.UserAccountData))]
+        public BusinessModel.UserAccountData GetUserAccount(string userName,string passWord)
+        {
+            var userAccounts = db.UserAccounts.Where(m => m.UserName == userName && m.Password == passWord).SingleOrDefault();
+            BusinessModel.UserAccountData obj = new BusinessModel.UserAccountData();
+            if (userAccounts != null)
+            {
+                obj = new BusinessModel.UserAccountData
+                {
+                    UserAccountID = userAccounts.UserAccountID,
+                    RoleID = userAccounts.RoleID,
+                    UserAccountName = userAccounts.UserAccountName,
+                    ContactNumber = userAccounts.ContactNumber,
+                    UserName = userAccounts.UserName,
+                    Password = userAccounts.Password,
+                    CreatedDate = userAccounts.CreatedDate,
+                    CreatedBy = userAccounts.CreatedBy,
+                    LastModifiedDate = userAccounts.LastModifiedDate,
+                    LastModifiedBy = userAccounts.LastModifiedBy,
+                    EMailAddress = userAccounts.EMailAddress,
+                    ContactAddress = userAccounts.ContactAddress
+                };
+            }
+            return obj;
+        }
+
         // Method : 4
         // POST: api/UserAccounts
         [ResponseType(typeof(BusinessModel.UserAccountData))]
