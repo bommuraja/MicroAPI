@@ -8,7 +8,9 @@ namespace MicroAPI.BusinessModel
     public class UserAccountData
     {
         public int UserAccountID { get; set; }
-        public Nullable<int> RoleID { get; set; }
+        public int RoleID { get; set; }
+        public string RoleName { get; set; }
+        public List<UserRoleData> UserRoleList { get; set; }
         public string UserAccountName { get; set; }
         public string ContactNumber { get; set; }
         public string UserName { get; set; }

@@ -28,9 +28,6 @@
           </Key>
           <Property Name="CashPaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserAccountID" Type="int" />
-          <Property Name="PaymentFromBankID" Type="int" />
-          <Property Name="PaymentToBankID" Type="int" />
-          <Property Name="PaymentStatusID" Type="int" />
           <Property Name="PaymentDate" Type="nvarchar" MaxLength="50" />
           <Property Name="PaymentAmount" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
@@ -62,6 +59,7 @@
           <Property Name="ResponseDate" Type="nvarchar" MaxLength="50" />
           <Property Name="RequestAmount" Type="nvarchar" MaxLength="50" />
           <Property Name="ResponseAmount" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="LastModifiedDate" Type="nvarchar" MaxLength="50" />
@@ -113,7 +111,7 @@
             <PropertyRef Name="UserAccountID" />
           </Key>
           <Property Name="UserAccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RoleID" Type="int" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="UserAccountName" Type="nvarchar" MaxLength="50" />
           <Property Name="ContactNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="UserName" Type="nvarchar(max)" />
@@ -125,6 +123,76 @@
           <Property Name="EMailAddress" Type="nvarchar" MaxLength="50" />
           <Property Name="ContactAddress" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_CashRequest_CashRequestStatus">
+          <End Role="CashRequestStatus" Type="Self.CashRequestStatus" Multiplicity="0..1" />
+          <End Role="CashRequest" Type="Self.CashRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CashRequestStatus">
+              <PropertyRef Name="CashRequestStatusID" />
+            </Principal>
+            <Dependent Role="CashRequest">
+              <PropertyRef Name="CashRequestStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CashRequest_FinancialInstitution">
+          <End Role="FinancialInstitution" Type="Self.FinancialInstitution" Multiplicity="0..1" />
+          <End Role="CashRequest" Type="Self.CashRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialInstitution">
+              <PropertyRef Name="FinancialInstitutionID" />
+            </Principal>
+            <Dependent Role="CashRequest">
+              <PropertyRef Name="PaymentFromBankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CashRequest_FinancialInstitution1">
+          <End Role="FinancialInstitution" Type="Self.FinancialInstitution" Multiplicity="0..1" />
+          <End Role="CashRequest" Type="Self.CashRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialInstitution">
+              <PropertyRef Name="FinancialInstitutionID" />
+            </Principal>
+            <Dependent Role="CashRequest">
+              <PropertyRef Name="PaymentToBankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CashRequest_UserAccount">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="0..1" />
+          <End Role="CashRequest" Type="Self.CashRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserAccountID" />
+            </Principal>
+            <Dependent Role="CashRequest">
+              <PropertyRef Name="UserAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAccount_UserRole">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="UserAccount">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MicroDataModelStoreContainer">
           <EntitySet Name="AccountTransaction" EntityType="Self.AccountTransaction" Schema="bommuraj_micro" store:Type="Tables" />
           <EntitySet Name="CashPayment" EntityType="Self.CashPayment" Schema="bommuraj_micro" store:Type="Tables" />
@@ -134,6 +202,27 @@
           <EntitySet Name="FinancialInstitution" EntityType="Self.FinancialInstitution" Schema="bommuraj_micro" store:Type="Tables" />
           <EntitySet Name="InterestPercentage" EntityType="Self.InterestPercentage" Schema="bommuraj_micro" store:Type="Tables" />
           <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="bommuraj_micro" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="bommuraj_micro" store:Type="Tables" />
+          <AssociationSet Name="FK_CashRequest_CashRequestStatus" Association="Self.FK_CashRequest_CashRequestStatus">
+            <End Role="CashRequestStatus" EntitySet="CashRequestStatus" />
+            <End Role="CashRequest" EntitySet="CashRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CashRequest_FinancialInstitution" Association="Self.FK_CashRequest_FinancialInstitution">
+            <End Role="FinancialInstitution" EntitySet="FinancialInstitution" />
+            <End Role="CashRequest" EntitySet="CashRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CashRequest_FinancialInstitution1" Association="Self.FK_CashRequest_FinancialInstitution1">
+            <End Role="FinancialInstitution" EntitySet="FinancialInstitution" />
+            <End Role="CashRequest" EntitySet="CashRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CashRequest_UserAccount" Association="Self.FK_CashRequest_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccount" />
+            <End Role="CashRequest" EntitySet="CashRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccount_UserRole" Association="Self.FK_UserAccount_UserRole">
+            <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="UserAccount" EntitySet="UserAccount" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -141,14 +230,35 @@
       <Schema Namespace="MicroDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="MicroEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AccountTransactions" EntityType="MicroDataModel.AccountTransaction" />
+          <EntitySet Name="CashPayments" EntityType="MicroDataModel.CashPayment" />
           <EntitySet Name="CashPaymentStatus" EntityType="MicroDataModel.CashPaymentStatu" />
           <EntitySet Name="CashRequestStatus" EntityType="MicroDataModel.CashRequestStatu" />
           <EntitySet Name="FinancialInstitutions" EntityType="MicroDataModel.FinancialInstitution" />
           <EntitySet Name="InterestPercentages" EntityType="MicroDataModel.InterestPercentage" />
-          <EntitySet Name="UserAccounts" EntityType="MicroDataModel.UserAccount" />
-          <EntitySet Name="CashPayments" EntityType="MicroDataModel.CashPayment" />
           <EntitySet Name="CashRequests" EntityType="MicroDataModel.CashRequest" />
-        </EntityContainer>
+          <AssociationSet Name="FK_CashRequest_CashRequestStatus" Association="MicroDataModel.FK_CashRequest_CashRequestStatus">
+            <End Role="CashRequestStatu" EntitySet="CashRequestStatus" />
+            <End Role="CashRequest" EntitySet="CashRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CashRequest_FinancialInstitution" Association="MicroDataModel.FK_CashRequest_FinancialInstitution">
+            <End Role="FinancialInstitution" EntitySet="FinancialInstitutions" />
+            <End Role="CashRequest" EntitySet="CashRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CashRequest_FinancialInstitution1" Association="MicroDataModel.FK_CashRequest_FinancialInstitution1">
+            <End Role="FinancialInstitution" EntitySet="FinancialInstitutions" />
+            <End Role="CashRequest" EntitySet="CashRequests" />
+          </AssociationSet>
+          <EntitySet Name="UserAccounts" EntityType="MicroDataModel.UserAccount" />
+          <EntitySet Name="UserRoles" EntityType="MicroDataModel.UserRole" />
+          <AssociationSet Name="FK_CashRequest_UserAccount" Association="MicroDataModel.FK_CashRequest_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="CashRequest" EntitySet="CashRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccount_UserRole" Association="MicroDataModel.FK_UserAccount_UserRole">
+            <End Role="UserRole" EntitySet="UserRoles" />
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="AccountTransaction">
           <Key>
             <PropertyRef Name="AccountTransactionID" />
@@ -161,6 +271,19 @@
           <Property Name="TransactionDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsCredit" Type="Boolean" />
           <Property Name="BalanceAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CashPayment">
+          <Key>
+            <PropertyRef Name="CashPaymentID" />
+          </Key>
+          <Property Name="CashPaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserAccountID" Type="Int32" />
+          <Property Name="PaymentDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -187,6 +310,7 @@
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CashRequests" Relationship="MicroDataModel.FK_CashRequest_CashRequestStatus" FromRole="CashRequestStatu" ToRole="CashRequest" />
         </EntityType>
         <EntityType Name="FinancialInstitution">
           <Key>
@@ -205,7 +329,9 @@
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
+          <NavigationProperty Name="CashRequests" Relationship="MicroDataModel.FK_CashRequest_FinancialInstitution" FromRole="FinancialInstitution" ToRole="CashRequest" />
+          <NavigationProperty Name="CashRequests1" Relationship="MicroDataModel.FK_CashRequest_FinancialInstitution1" FromRole="FinancialInstitution" ToRole="CashRequest" />
+          </EntityType>
         <EntityType Name="InterestPercentage">
           <Key>
             <PropertyRef Name="InterestPercentageID" />
@@ -213,39 +339,6 @@
           <Property Name="InterestPercentageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserAccountID" Type="Int32" />
           <Property Name="InterestPercentage1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="UserAccount">
-          <Key>
-            <PropertyRef Name="UserAccountID" />
-          </Key>
-          <Property Name="UserAccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RoleID" Type="Int32" />
-          <Property Name="UserAccountName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ContactNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EMailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ContactAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="CashPayment">
-          <Key>
-            <PropertyRef Name="CashPaymentID" />
-          </Key>
-          <Property Name="CashPaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserAccountID" Type="Int32" />
-          <Property Name="PaymentFromBankID" Type="Int32" />
-          <Property Name="PaymentToBankID" Type="Int32" />
-          <Property Name="PaymentStatusID" Type="Int32" />
-          <Property Name="PaymentDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PaymentAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -264,12 +357,107 @@
           <Property Name="ResponseDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RequestAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ResponseAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CashRequestStatu" Relationship="MicroDataModel.FK_CashRequest_CashRequestStatus" FromRole="CashRequest" ToRole="CashRequestStatu" />
+          <NavigationProperty Name="FinancialInstitution" Relationship="MicroDataModel.FK_CashRequest_FinancialInstitution" FromRole="CashRequest" ToRole="FinancialInstitution" />
+          <NavigationProperty Name="FinancialInstitution1" Relationship="MicroDataModel.FK_CashRequest_FinancialInstitution1" FromRole="CashRequest" ToRole="FinancialInstitution" />
+          <NavigationProperty Name="UserAccount" Relationship="MicroDataModel.FK_CashRequest_UserAccount" FromRole="CashRequest" ToRole="UserAccount" />
         </EntityType>
-      </Schema>
+        <Association Name="FK_CashRequest_CashRequestStatus">
+          <End Type="MicroDataModel.CashRequestStatu" Role="CashRequestStatu" Multiplicity="0..1" />
+          <End Type="MicroDataModel.CashRequest" Role="CashRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CashRequestStatu">
+              <PropertyRef Name="CashRequestStatusID" />
+            </Principal>
+            <Dependent Role="CashRequest">
+              <PropertyRef Name="CashRequestStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CashRequest_FinancialInstitution">
+          <End Type="MicroDataModel.FinancialInstitution" Role="FinancialInstitution" Multiplicity="0..1" />
+          <End Type="MicroDataModel.CashRequest" Role="CashRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialInstitution">
+              <PropertyRef Name="FinancialInstitutionID" />
+            </Principal>
+            <Dependent Role="CashRequest">
+              <PropertyRef Name="PaymentFromBankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CashRequest_FinancialInstitution1">
+          <End Type="MicroDataModel.FinancialInstitution" Role="FinancialInstitution" Multiplicity="0..1" />
+          <End Type="MicroDataModel.CashRequest" Role="CashRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialInstitution">
+              <PropertyRef Name="FinancialInstitutionID" />
+            </Principal>
+            <Dependent Role="CashRequest">
+              <PropertyRef Name="PaymentToBankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="UserAccountID" />
+          </Key>
+          <Property Name="UserAccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="UserAccountName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EMailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CashRequests" Relationship="MicroDataModel.FK_CashRequest_UserAccount" FromRole="UserAccount" ToRole="CashRequest" />
+          <NavigationProperty Name="UserRole" Relationship="MicroDataModel.FK_UserAccount_UserRole" FromRole="UserAccount" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserAccounts" Relationship="MicroDataModel.FK_UserAccount_UserRole" FromRole="UserRole" ToRole="UserAccount" />
+        </EntityType>
+        <Association Name="FK_CashRequest_UserAccount">
+          <End Type="MicroDataModel.UserAccount" Role="UserAccount" Multiplicity="0..1" />
+          <End Type="MicroDataModel.CashRequest" Role="CashRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserAccountID" />
+            </Principal>
+            <Dependent Role="CashRequest">
+              <PropertyRef Name="UserAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAccount_UserRole">
+          <End Type="MicroDataModel.UserRole" Role="UserRole" Multiplicity="1" />
+          <End Type="MicroDataModel.UserAccount" Role="UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="UserAccount">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -290,6 +478,20 @@
                 <ScalarProperty Name="TransactionReferenceID" ColumnName="TransactionReferenceID" />
                 <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
                 <ScalarProperty Name="AccountTransactionID" ColumnName="AccountTransactionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CashPayments">
+            <EntityTypeMapping TypeName="MicroDataModel.CashPayment">
+              <MappingFragment StoreEntitySet="CashPayment">
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="CashPaymentID" ColumnName="CashPaymentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -349,6 +551,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CashRequests">
+            <EntityTypeMapping TypeName="MicroDataModel.CashRequest">
+              <MappingFragment StoreEntitySet="CashRequest">
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ResponseAmount" ColumnName="ResponseAmount" />
+                <ScalarProperty Name="RequestAmount" ColumnName="RequestAmount" />
+                <ScalarProperty Name="ResponseDate" ColumnName="ResponseDate" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="PaymentToBankID" ColumnName="PaymentToBankID" />
+                <ScalarProperty Name="PaymentFromBankID" ColumnName="PaymentFromBankID" />
+                <ScalarProperty Name="CashRequestStatusID" ColumnName="CashRequestStatusID" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
+                <ScalarProperty Name="CashRequestID" ColumnName="CashRequestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UserAccounts">
             <EntityTypeMapping TypeName="MicroDataModel.UserAccount">
               <MappingFragment StoreEntitySet="UserAccount">
@@ -367,39 +589,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CashPayments">
-            <EntityTypeMapping TypeName="MicroDataModel.CashPayment">
-              <MappingFragment StoreEntitySet="CashPayment">
-                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
-                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="MicroDataModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
-                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
-                <ScalarProperty Name="PaymentStatusID" ColumnName="PaymentStatusID" />
-                <ScalarProperty Name="PaymentToBankID" ColumnName="PaymentToBankID" />
-                <ScalarProperty Name="PaymentFromBankID" ColumnName="PaymentFromBankID" />
-                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
-                <ScalarProperty Name="CashPaymentID" ColumnName="CashPaymentID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CashRequests">
-            <EntityTypeMapping TypeName="MicroDataModel.CashRequest">
-              <MappingFragment StoreEntitySet="CashRequest">
-                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
-                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ResponseAmount" ColumnName="ResponseAmount" />
-                <ScalarProperty Name="RequestAmount" ColumnName="RequestAmount" />
-                <ScalarProperty Name="ResponseDate" ColumnName="ResponseDate" />
-                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
-                <ScalarProperty Name="PaymentToBankID" ColumnName="PaymentToBankID" />
-                <ScalarProperty Name="PaymentFromBankID" ColumnName="PaymentFromBankID" />
-                <ScalarProperty Name="CashRequestStatusID" ColumnName="CashRequestStatusID" />
-                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
-                <ScalarProperty Name="CashRequestID" ColumnName="CashRequestID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

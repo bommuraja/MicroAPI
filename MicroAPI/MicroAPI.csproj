@@ -203,6 +203,7 @@
     <Compile Include="BusinessModel\CashRequestStatusData.cs" />
     <Compile Include="BusinessModel\FinancialInstitutionData.cs" />
     <Compile Include="BusinessModel\InterestPercentageData.cs" />
+    <Compile Include="BusinessModel\UserRoleData.cs" />
     <Compile Include="BusinessModel\UserAccountData.cs" />
     <Compile Include="Controllers\AccountTransactionsController.cs" />
     <Compile Include="Controllers\CashPaymentsController.cs" />
@@ -254,6 +255,9 @@
       <DependentUpon>MicroEntityDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\UserAccount.cs">
+      <DependentUpon>MicroEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserRole.cs">
       <DependentUpon>MicroEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

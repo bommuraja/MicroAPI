@@ -23,9 +23,15 @@ namespace MicroAPI.Models
         public string ResponseDate { get; set; }
         public string RequestAmount { get; set; }
         public string ResponseAmount { get; set; }
+        public Nullable<bool> IsActive { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public string LastModifiedDate { get; set; }
         public string LastModifiedBy { get; set; }
+    
+        public virtual CashRequestStatu CashRequestStatu { get; set; }
+        public virtual FinancialInstitution FinancialInstitution { get; set; }
+        public virtual FinancialInstitution FinancialInstitution1 { get; set; }
+        public virtual UserAccount UserAccount { get; set; }
     }
 }

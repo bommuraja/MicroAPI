@@ -73,53 +73,124 @@ namespace MicroAPI.Controllers
         [ResponseType(typeof(BusinessModel.UserAccountData))]
         public BusinessModel.UserAccountData GetUserAccount(int id)
         {
-            var userAccounts = db.UserAccounts.Find(id);
-            BusinessModel.UserAccountData obj = new BusinessModel.UserAccountData();
-            if (userAccounts != null)
+            try
             {
-                obj = new BusinessModel.UserAccountData
+                var userRoleList = db.UserRoles.ToList();
+                var userRoleDataList = new List<UserRoleData>();
+                foreach (var item in userRoleList)
                 {
-                    UserAccountID = userAccounts.UserAccountID,
-                    RoleID = userAccounts.RoleID,
-                    UserAccountName = userAccounts.UserAccountName,
-                    ContactNumber = userAccounts.ContactNumber,
-                    UserName = userAccounts.UserName,
-                    Password = userAccounts.Password,
-                    CreatedDate = userAccounts.CreatedDate,
-                    CreatedBy = userAccounts.CreatedBy,
-                    LastModifiedDate = userAccounts.LastModifiedDate,
-                    LastModifiedBy = userAccounts.LastModifiedBy,
-                    EMailAddress = userAccounts.EMailAddress,
-                    ContactAddress = userAccounts.ContactAddress
-                };
+                    var userRole = new UserRoleData
+                    {
+                        RoleID = item.RoleID,
+                        RoleName = item.RoleName,
+                        CreatedBy = item.CreatedBy,
+                        CreatedDate = item.CreatedDate,
+                        IsActive = item.IsActive
+                    };
+                    userRoleDataList.Add(userRole);
+                }
+                var userAccounts = db.UserAccounts.Find(id);
+                BusinessModel.UserAccountData obj = new BusinessModel.UserAccountData();
+                if (userAccounts != null)
+                {
+                    obj = new BusinessModel.UserAccountData
+                    {
+                        UserAccountID = userAccounts.UserAccountID,
+                        RoleID = userAccounts.RoleID,
+                        RoleName = userAccounts.UserRole.RoleName,
+                        UserRoleList = userRoleDataList,
+                        UserAccountName = userAccounts.UserAccountName,
+                        ContactNumber = userAccounts.ContactNumber,
+                        UserName = userAccounts.UserName,
+                        Password = userAccounts.Password,
+                        CreatedDate = userAccounts.CreatedDate,
+                        CreatedBy = userAccounts.CreatedBy,
+                        LastModifiedDate = userAccounts.LastModifiedDate,
+                        LastModifiedBy = userAccounts.LastModifiedBy,
+                        EMailAddress = userAccounts.EMailAddress,
+                        ContactAddress = userAccounts.ContactAddress
+                    };
+                }
+                else
+                {
+                    obj = new BusinessModel.UserAccountData
+                    {
+                        UserAccountID = 0,
+                        RoleID = 0,
+                        RoleName = "",
+                        UserRoleList = userRoleDataList,
+                        UserAccountName = "",
+                        ContactNumber = "",
+                        UserName = "",
+                        Password = "",
+                        CreatedDate = "",
+                        CreatedBy = "",
+                        LastModifiedDate = "",
+                        LastModifiedBy = "",
+                        EMailAddress = "",
+                        ContactAddress = ""
+                    };
+                }
+                return obj;
+
             }
-            return obj;
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+           
         }
 
         [ResponseType(typeof(BusinessModel.UserAccountData))]
         public BusinessModel.UserAccountData GetUserAccount(string userName,string passWord)
         {
-            var userAccounts = db.UserAccounts.Where(m => m.UserName == userName && m.Password == passWord).SingleOrDefault();
-            BusinessModel.UserAccountData obj = new BusinessModel.UserAccountData();
-            if (userAccounts != null)
+            try
             {
-                obj = new BusinessModel.UserAccountData
+                var userRoleList = db.UserRoles.ToList();
+                var userRoleDataList = new List<UserRoleData>();
+                foreach (var item in userRoleList)
                 {
-                    UserAccountID = userAccounts.UserAccountID,
-                    RoleID = userAccounts.RoleID,
-                    UserAccountName = userAccounts.UserAccountName,
-                    ContactNumber = userAccounts.ContactNumber,
-                    UserName = userAccounts.UserName,
-                    Password = userAccounts.Password,
-                    CreatedDate = userAccounts.CreatedDate,
-                    CreatedBy = userAccounts.CreatedBy,
-                    LastModifiedDate = userAccounts.LastModifiedDate,
-                    LastModifiedBy = userAccounts.LastModifiedBy,
-                    EMailAddress = userAccounts.EMailAddress,
-                    ContactAddress = userAccounts.ContactAddress
-                };
+                    var userRole = new UserRoleData
+                    {
+                        RoleID = item.RoleID,
+                        RoleName = item.RoleName,
+                        CreatedBy = item.CreatedBy,
+                        CreatedDate = item.CreatedDate,
+                        IsActive = item.IsActive
+                    };
+                    userRoleDataList.Add(userRole);
+                }
+                var userAccounts = db.UserAccounts.Where(m => m.UserName == userName && m.Password == passWord).SingleOrDefault();
+                BusinessModel.UserAccountData obj = new BusinessModel.UserAccountData();
+                if (userAccounts != null)
+                {
+                    obj = new BusinessModel.UserAccountData
+                    {
+                        UserAccountID = userAccounts.UserAccountID,
+                        RoleID = userAccounts.RoleID,
+                        RoleName=userAccounts.UserRole.RoleName,
+                        UserRoleList= userRoleDataList,
+                        UserAccountName = userAccounts.UserAccountName,
+                        ContactNumber = userAccounts.ContactNumber,
+                        UserName = userAccounts.UserName,
+                        Password = userAccounts.Password,
+                        CreatedDate = userAccounts.CreatedDate,
+                        CreatedBy = userAccounts.CreatedBy,
+                        LastModifiedDate = userAccounts.LastModifiedDate,
+                        LastModifiedBy = userAccounts.LastModifiedBy,
+                        EMailAddress = userAccounts.EMailAddress,
+                        ContactAddress = userAccounts.ContactAddress
+                    };
+                }
+                return obj;
             }
-            return obj;
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+           
         }
 
         // Method : 4

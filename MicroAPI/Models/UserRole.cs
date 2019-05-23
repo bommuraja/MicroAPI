@@ -12,29 +12,21 @@ namespace MicroAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserAccount
+    public partial class UserRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserAccount()
+        public UserRole()
         {
-            this.CashRequests = new HashSet<CashRequest>();
+            this.UserAccounts = new HashSet<UserAccount>();
         }
     
-        public int UserAccountID { get; set; }
         public int RoleID { get; set; }
-        public string UserAccountName { get; set; }
-        public string ContactNumber { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public string RoleName { get; set; }
+        public Nullable<bool> IsActive { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
-        public string LastModifiedDate { get; set; }
-        public string LastModifiedBy { get; set; }
-        public string EMailAddress { get; set; }
-        public string ContactAddress { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CashRequest> CashRequests { get; set; }
-        public virtual UserRole UserRole { get; set; }
+        public virtual ICollection<UserAccount> UserAccounts { get; set; }
     }
 }

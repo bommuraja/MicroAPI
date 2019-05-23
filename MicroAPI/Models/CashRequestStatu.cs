@@ -14,11 +14,20 @@ namespace MicroAPI.Models
     
     public partial class CashRequestStatu
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CashRequestStatu()
+        {
+            this.CashRequests = new HashSet<CashRequest>();
+        }
+    
         public int CashRequestStatusID { get; set; }
         public string CashRequestStatusName { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public string LastModifiedDate { get; set; }
         public string LastModifiedBy { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CashRequest> CashRequests { get; set; }
     }
 }

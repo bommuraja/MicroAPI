@@ -26,12 +26,13 @@ namespace MicroAPI.Models
         }
     
         public virtual DbSet<AccountTransaction> AccountTransactions { get; set; }
+        public virtual DbSet<CashPayment> CashPayments { get; set; }
         public virtual DbSet<CashPaymentStatu> CashPaymentStatus { get; set; }
         public virtual DbSet<CashRequestStatu> CashRequestStatus { get; set; }
         public virtual DbSet<FinancialInstitution> FinancialInstitutions { get; set; }
         public virtual DbSet<InterestPercentage> InterestPercentages { get; set; }
-        public virtual DbSet<UserAccount> UserAccounts { get; set; }
-        public virtual DbSet<CashPayment> CashPayments { get; set; }
         public virtual DbSet<CashRequest> CashRequests { get; set; }
+        public virtual DbSet<UserAccount> UserAccounts { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
     }
 }
