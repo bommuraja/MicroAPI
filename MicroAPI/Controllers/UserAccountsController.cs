@@ -19,7 +19,7 @@ namespace MicroAPI.Controllers
         private MicroEntities db = new MicroEntities();
 
         // Method : 1
-        // GET: api/DataEntryOperators
+        // GET: api/DataEntryOperators // test
         public List<BusinessModel.UserAccountData> GetUserAccounts()
         {
             List<BusinessModel.UserAccountData> objList = new List<BusinessModel.UserAccountData>();
