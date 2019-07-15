@@ -39,11 +39,11 @@ namespace MicroAPI.Controllers
                         LastModifiedDate = item.LastModifiedDate
                     });
                 }
-                for (int item=0; item < CasshRequestList.Count() ;item++)
+                for (int item = 0; item < CasshRequestList.Count(); item++)
                 {
                     try
                     {
-                        if (CasshRequestList[item].IsActive!=null && (bool)CasshRequestList[item].IsActive)
+                        if (CasshRequestList[item].IsActive != null && (bool)CasshRequestList[item].IsActive)
                         {
                             var objCashRequest = new BusinessModel.CashRequestData();
 
@@ -76,7 +76,7 @@ namespace MicroAPI.Controllers
 
                         throw ex;
                     }
-                   
+
                 }
                 return objList;
             }
@@ -85,7 +85,7 @@ namespace MicroAPI.Controllers
 
                 throw;
             }
-           
+
         }
 
         // Method : 2
@@ -170,12 +170,12 @@ namespace MicroAPI.Controllers
                     UserAccountID = cashRequest.UserAccountID,
                     UserAccountName = cashRequest.UserAccount.UserAccountName,
                     CashRequestStatusID = cashRequest.CashRequestStatusID,
-                    CashRequestStatusName =(cashRequest.CashRequestStatu!=null)?cashRequest.CashRequestStatu.CashRequestStatusName:"",
+                    CashRequestStatusName = (cashRequest.CashRequestStatu != null) ? cashRequest.CashRequestStatu.CashRequestStatusName : "",
                     PaymentFromBankID = cashRequest.PaymentFromBankID,
-                    PaymentFromBankName = (cashRequest.FinancialInstitution!=null)?cashRequest.FinancialInstitution.InstitutionName:"",
+                    PaymentFromBankName = (cashRequest.FinancialInstitution != null) ? cashRequest.FinancialInstitution.InstitutionName : "",
                     PaymentFromBankList = objPaymentFromBankList,
                     PaymentToBankID = cashRequest.PaymentToBankID,
-                    PaymentToBankName =(cashRequest.FinancialInstitution1!=null)?cashRequest.FinancialInstitution1.InstitutionName:"",
+                    PaymentToBankName = (cashRequest.FinancialInstitution1 != null) ? cashRequest.FinancialInstitution1.InstitutionName : "",
                     PaymentToBankList = objPaymentToBankList,
                     RequestDate = cashRequest.RequestDate,
                     ResponseDate = cashRequest.ResponseDate,
@@ -186,7 +186,7 @@ namespace MicroAPI.Controllers
                     CreatedBy = cashRequest.CreatedBy,
                     LastModifiedDate = cashRequest.LastModifiedDate,
                     LastModifiedBy = cashRequest.LastModifiedBy,
-                    IsActive=(cashRequest.IsActive!=null)? (bool)cashRequest.IsActive:false
+                    IsActive = (cashRequest.IsActive != null) ? (bool)cashRequest.IsActive : false
                 };
             }
             return obj;
@@ -245,9 +245,9 @@ namespace MicroAPI.Controllers
                     });
                 }
                 var sdf = db.CashRequests.ToList();
-                var cashRequest = db.CashRequests.Where(m => m.UserAccountID == id).OrderByDescending(n=>n.CashRequestID).FirstOrDefault();
+                var cashRequest = db.CashRequests.Where(m => m.UserAccountID == id).OrderByDescending(n => n.CashRequestID).FirstOrDefault();
                 BusinessModel.CashRequestData obj = new BusinessModel.CashRequestData();
-                if (cashRequest != null && cashRequest.IsActive==true)
+                if (cashRequest != null && cashRequest.IsActive == true)
                 {
                     obj = new BusinessModel.CashRequestData();
 
@@ -257,11 +257,11 @@ namespace MicroAPI.Controllers
                     obj.UserAccountName = cashRequest.UserAccount.UserAccountName;
                     obj.CashRequestStatusID = cashRequest.CashRequestStatusID;
                     obj.CashRequestStatusName = cashRequest.CashRequestStatu.CashRequestStatusName;
-                    obj.PaymentFromBankID = (cashRequest.PaymentFromBankID!=null)? cashRequest.PaymentFromBankID:0;
-                    obj.PaymentFromBankName = (cashRequest.FinancialInstitution!=null)? cashRequest.FinancialInstitution.InstitutionName:"";
+                    obj.PaymentFromBankID = (cashRequest.PaymentFromBankID != null) ? cashRequest.PaymentFromBankID : 0;
+                    obj.PaymentFromBankName = (cashRequest.FinancialInstitution != null) ? cashRequest.FinancialInstitution.InstitutionName : "";
                     obj.PaymentFromBankList = objPaymentFromBankList;
-                    obj.PaymentToBankID = (cashRequest.PaymentToBankID != null)? cashRequest.PaymentToBankID : 0;
-                    obj.PaymentToBankName = (cashRequest.FinancialInstitution1 != null) ? cashRequest.FinancialInstitution1.InstitutionName:"";
+                    obj.PaymentToBankID = (cashRequest.PaymentToBankID != null) ? cashRequest.PaymentToBankID : 0;
+                    obj.PaymentToBankName = (cashRequest.FinancialInstitution1 != null) ? cashRequest.FinancialInstitution1.InstitutionName : "";
                     obj.PaymentToBankList = objPaymentToBankList;
                     obj.RequestDate = cashRequest.RequestDate;
                     obj.ResponseDate = cashRequest.ResponseDate;
@@ -273,7 +273,7 @@ namespace MicroAPI.Controllers
                     obj.CreatedBy = cashRequest.CreatedBy;
                     obj.LastModifiedDate = cashRequest.LastModifiedDate;
                     obj.LastModifiedBy = cashRequest.LastModifiedBy;
-                    
+
                 }
                 else
                 {
@@ -298,7 +298,7 @@ namespace MicroAPI.Controllers
                     obj.CreatedBy = db.UserAccounts.Where(m => m.UserAccountID == id).FirstOrDefault().UserAccountName;
                     obj.LastModifiedDate = DateTime.Now.ToString();
                     obj.LastModifiedBy = db.UserAccounts.Where(m => m.UserAccountID == id).FirstOrDefault().UserAccountName;
-                   
+
                 }
                 return obj;
             }
@@ -307,23 +307,21 @@ namespace MicroAPI.Controllers
 
                 throw;
             }
-           
+
         }
 
         // Method : 4
         // POST: api/UserAccounts
         [ResponseType(typeof(BusinessModel.CashRequestData))]
-        public IHttpActionResult PostCashRequest(BusinessModel.CashRequestData cashRequest)
+        public BusinessModel.CashRequestData PostCashRequest(BusinessModel.CashRequestData cashRequest)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-                var cashRequestStatusName= db.CashRequestStatus.Where(m => m.CashRequestStatusID == cashRequest.CashRequestStatusID).FirstOrDefault().CashRequestStatusName;
+                var cashRequestStatusName = db.CashRequestStatus.Where(m => m.CashRequestStatusID == cashRequest.CashRequestStatusID).FirstOrDefault().CashRequestStatusName;
                 if (cashRequest.CashRequestID > 0 && cashRequest.IsActive)
                 {
+                   
+                    // For User related cash requrest
                     if (cashRequest.CashRequestStatusName == "newrequest" && cashRequest.UserActionOnCashRequest == "submit")
                     {
                         cashRequest.CashRequestStatusName = "submit";
@@ -332,15 +330,24 @@ namespace MicroAPI.Controllers
                         cashRequest.PaymentFromBankID = null;
                         cashRequest.PaymentToBankID = null;
                     }
-                    if (cashRequest.UserActionOnCashRequest == "cancel")
+                    // For User related cash requrest
+                    else if (cashRequest.UserActionOnCashRequest == "cancel")
                     {
                         cashRequest.CashRequestStatusName = "cancel";
                         cashRequest.IsActive = false;
                         cashRequest.CashRequestStatusID = db.CashRequestStatus.Where(m => m.CashRequestStatusName == cashRequest.CashRequestStatusName).FirstOrDefault().CashRequestStatusID;
                     }
-                    if (cashRequestStatusName == "approved"|| cashRequestStatusName == "rejected")
+                    // For Admin
+                    else if (cashRequestStatusName == "cancel")
                     {
                         cashRequest.IsActive = false;
+                        cashRequest.CashRequestStatusID = db.CashRequestStatus.Where(m => m.CashRequestStatusName == cashRequest.CashRequestStatusName).FirstOrDefault().CashRequestStatusID;
+                    }
+                    else if (cashRequestStatusName == "approved" || cashRequestStatusName == "rejected")
+                    {
+                        cashRequest.IsActive = false;
+                        cashRequest.CashRequestStatusID = db.CashRequestStatus.Where(m => m.CashRequestStatusName == cashRequest.CashRequestStatusName).FirstOrDefault().CashRequestStatusID;
+
                     }
 
                     Models.CashRequest obj = db.CashRequests.Find(cashRequest.CashRequestID);
@@ -349,8 +356,8 @@ namespace MicroAPI.Controllers
                     obj.CashRequestID = cashRequest.CashRequestID;
                     obj.UserAccountID = cashRequest.UserAccountID;
                     obj.CashRequestStatusID = cashRequest.CashRequestStatusID;
-                    obj.PaymentFromBankID = (cashRequest.PaymentFromBankID>0)? cashRequest.PaymentFromBankID:null;
-                    obj.PaymentToBankID = (cashRequest.PaymentToBankID>0)? cashRequest.PaymentToBankID:null;
+                    obj.PaymentFromBankID = (cashRequest.PaymentFromBankID > 0) ? cashRequest.PaymentFromBankID : null;
+                    obj.PaymentToBankID = (cashRequest.PaymentToBankID > 0) ? cashRequest.PaymentToBankID : null;
                     obj.RequestDate = cashRequest.RequestDate;
                     obj.ResponseDate = cashRequest.ResponseDate;
                     obj.RequestAmount = cashRequest.RequestAmount;
@@ -400,7 +407,111 @@ namespace MicroAPI.Controllers
                     db.SaveChanges();
                 }
 
-                return CreatedAtRoute("DefaultApi", new { id = cashRequest.CashRequestID }, cashRequest);
+
+                var id = cashRequest.UserAccountID;
+
+                List<BusinessModel.CashRequestStatusData> objCashRequestStatusList = new List<BusinessModel.CashRequestStatusData>();
+                foreach (var item in db.CashRequestStatus)
+                {
+                    objCashRequestStatusList.Add(new BusinessModel.CashRequestStatusData
+                    {
+                        CashRequestStatusID = item.CashRequestStatusID,
+                        CashRequestStatusName = item.CashRequestStatusName,
+                        CreatedBy = item.CreatedBy,
+                        CreatedDate = item.CreatedDate,
+                        LastModifiedBy = item.LastModifiedBy,
+                        LastModifiedDate = item.LastModifiedDate
+                    });
+                }
+                var objPaymentFromBankList = new List<FinancialInstitutionData>();
+                var objPaymentFromBankListDB = db.FinancialInstitutions.Where(m => m.NickName == "Admin").ToList();
+                foreach (var item in objPaymentFromBankListDB)
+                {
+                    objPaymentFromBankList.Add(new FinancialInstitutionData
+                    {
+                        FinancialInstitutionID = item.FinancialInstitutionID,
+                        AccountName = item.AccountName,
+                        NickName = item.NickName,
+                        AccountNumber = item.AccountName,
+                        InstitutionName = item.InstitutionName,
+                        InstitutionIFSCCode = item.InstitutionIFSCCode,
+                        InstitutionLocation = item.InstitutionLocation,
+                        InstitutionCity = item.InstitutionCity
+                    });
+                }
+                var objPaymentToBankList = new List<FinancialInstitutionData>();
+                var objPaymentToBankListDB = db.FinancialInstitutions.Where(m => m.UserAccountID == id).ToList();
+                foreach (var item in objPaymentToBankListDB)
+                {
+                    objPaymentToBankList.Add(new FinancialInstitutionData
+                    {
+                        FinancialInstitutionID = item.FinancialInstitutionID,
+                        AccountName = item.AccountName,
+                        NickName = item.NickName,
+                        AccountNumber = item.AccountName,
+                        InstitutionName = item.InstitutionName,
+                        InstitutionIFSCCode = item.InstitutionIFSCCode,
+                        InstitutionLocation = item.InstitutionLocation,
+                        InstitutionCity = item.InstitutionCity
+                    });
+                }
+                var sdf = db.CashRequests.ToList();
+                var cashRequestNew = db.CashRequests.Where(m => m.UserAccountID == id).OrderByDescending(n => n.CashRequestID).FirstOrDefault();
+                BusinessModel.CashRequestData objNew = new BusinessModel.CashRequestData();
+                if (cashRequest != null && cashRequest.IsActive == true)
+                {
+                    objNew = new BusinessModel.CashRequestData();
+
+
+                    objNew.CashRequestID = cashRequestNew.CashRequestID;
+                    objNew.UserAccountID = cashRequestNew.UserAccountID;
+                    objNew.UserAccountName = (cashRequestNew.UserAccount!=null)?cashRequestNew.UserAccount.UserAccountName:"";
+                    objNew.CashRequestStatusID = cashRequestNew.CashRequestStatusID;
+                    objNew.CashRequestStatusName = (cashRequestNew.CashRequestStatu!=null)?cashRequestNew.CashRequestStatu.CashRequestStatusName:"";
+                    objNew.PaymentFromBankID = (cashRequestNew.PaymentFromBankID != null) ? cashRequestNew.PaymentFromBankID : 0;
+                    objNew.PaymentFromBankName = (cashRequestNew.FinancialInstitution != null) ? cashRequestNew.FinancialInstitution.InstitutionName : "";
+                    objNew.PaymentFromBankList = objPaymentFromBankList;
+                    objNew.PaymentToBankID = (cashRequestNew.PaymentToBankID != null) ? cashRequestNew.PaymentToBankID : 0;
+                    objNew.PaymentToBankName = (cashRequestNew.FinancialInstitution1 != null) ? cashRequestNew.FinancialInstitution1.InstitutionName : "";
+                    objNew.PaymentToBankList = objPaymentToBankList;
+                    objNew.RequestDate = cashRequestNew.RequestDate;
+                    objNew.ResponseDate = cashRequestNew.ResponseDate;
+                    objNew.RequestAmount = cashRequestNew.RequestAmount;
+                    objNew.ResponseAmount = cashRequestNew.ResponseAmount;
+                    objNew.IsActive = cashRequestNew.IsActive ?? true;
+                    objNew.CashRequestStatusList = objCashRequestStatusList;
+                    objNew.CreatedDate = cashRequestNew.CreatedDate;
+                    objNew.CreatedBy = cashRequestNew.CreatedBy;
+                    objNew.LastModifiedDate = cashRequestNew.LastModifiedDate;
+                    objNew.LastModifiedBy = cashRequestNew.LastModifiedBy;
+
+                }
+                else
+                {
+                    objNew = new BusinessModel.CashRequestData();
+
+                    objNew.CashRequestID = 0;
+                    objNew.UserAccountID = id;
+                    objNew.UserAccountName = "";
+                    objNew.CashRequestStatusID = db.CashRequestStatus.Where(m => m.CashRequestStatusName == "newrequest").FirstOrDefault().CashRequestStatusID;
+                    objNew.CashRequestStatusName = "newrequest";
+                    objNew.PaymentFromBankID = 0;
+                    objNew.PaymentToBankID = 0;
+                    objNew.PaymentFromBankList = objPaymentFromBankList;
+                    objNew.PaymentToBankList = objPaymentToBankList;
+                    objNew.RequestDate = DateTime.Now.ToString();
+                    objNew.ResponseDate = "";
+                    objNew.RequestAmount = "0";
+                    objNew.ResponseAmount = "";
+                    objNew.IsActive = false;
+                    objNew.CashRequestStatusList = objCashRequestStatusList;
+                    objNew.CreatedDate = DateTime.Now.ToString();
+                    objNew.CreatedBy = db.UserAccounts.Where(m => m.UserAccountID == id).FirstOrDefault().UserAccountName;
+                    objNew.LastModifiedDate = DateTime.Now.ToString();
+                    objNew.LastModifiedBy = db.UserAccounts.Where(m => m.UserAccountID == id).FirstOrDefault().UserAccountName;
+
+                }
+                return objNew;
 
             }
             catch (Exception ex)
